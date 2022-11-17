@@ -33,7 +33,7 @@ def generate_order(usesDiscount, discount, date):
     subtotal = product[2];
     total = product[2];
     if discountUsed != 'none':
-        total = product[2] * discount[1]
+        total = round(float(float(product[2]) * (1.0 - float(float(discount[1]) / 100))), 2)
 
     shipping = random.choice(['home_delivery', 'parcel_shop'])
 
