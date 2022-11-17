@@ -12,10 +12,10 @@ for line in lines:
         postalCodes.append(line.split()[0])
         
 def generate_customer():
-    customerUUID = uuid.uuid1;
+    customerUUID = uuid.uuid1();
     
     obj = {
-        'customerId': customerUUID,
+        'customerId': customerUUID.__str__(),
         'postalCode': random.choice(postalCodes),
     }
     return obj;
@@ -59,9 +59,9 @@ def generate_list_of_x(amount):
     orderList = []
 
     for i in range(amount):
-        orderList.append(generate_product());
+        orderList.append(generate_customer());
     
     print(orderList);
 
 
-# generate_list_of_x(10);
+generate_list_of_x(10);
