@@ -1,22 +1,19 @@
+from data import getCityData;
+
 import random
 import uuid
-import json
 import csv
 
-cityFile = open('cities.txt', 'r');
-lines = cityFile.readlines();
-postalCodes = []
-cities = []
+fullList = getCityData();
 
-for line in lines:
-    if len(line) > 4:
-        postalCodes.append(line.split()[0])
-        cities.append(line.split()[1])
+postalCodes =  fullList[0]
+cities = fullList[1]
+
         
 def generate_customer():
     customerUUID = uuid.uuid1();
 
-    cityIndex = random.randint(0, len(postalCodes))
+    cityIndex = random.randint(0, len(postalCodes) - 1);
     
     obj = {
         'customerId': customerUUID.__str__(),
@@ -65,6 +62,13 @@ def generate_list_of_customers(amount):
     
     return customersList;
 
+def generate_list_of_orders(amount):
+    ordersList = []
+    for i in range(amount):
+        ordersList.append(generate_order());
+    
+    return ordersList;
+
 
 def export_list_of_customers_to_csv(): 
     customerList = generate_list_of_customers(10000);
@@ -85,4 +89,24 @@ def export_list_of_customers_to_csv():
 
     customer_csv.close()
 
+def export_list_of_orders_to_csv(): 
+    orderList = generate_list_of_orders(10000);
+
+    order_csv = open('orders.csv', 'w')
+    csv_writer = csv.writer(order_csv)
+
+    count = 0;
+
+    for order in orderList: 
+        if count == 0:
+            #write header
+            header = order.keys()
+            csv_writer.writerow(header)
+            count += 1
+
+        csv_writer.writerow(order.values())
+
+    order_csv.close()
+
 export_list_of_customers_to_csv();
+export_list_of_orders_to_csv()
