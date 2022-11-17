@@ -3,19 +3,19 @@ import uuid
 import random
 import datetime
 
-discount1 = [
+teamtcDiscount = [
     'procent',
     10,
     'teamtc10',
 ]
 
-discount2 = [
+blackFridayDiscount = [
     'procent',
     30,
     'blackfriday21',
 ]
 
-discount3 = [
+christmasDiscount = [
     'procent',
     20,
     'christmas21',
@@ -50,6 +50,7 @@ def generate_order(usesDiscount, discount, date):
     }
     return obj;
 
+
 def generate_list_of_orders():
 
     chance = 1
@@ -59,30 +60,95 @@ def generate_list_of_orders():
     ordersList = []
     months = [1,2,3,4,5,6,7,8,9,10,11,12]
 
+    monthOrderCount = 0;
+
     # YEAH
     for month in months:
         # MONTH
         for i in range(28):
             amountOfOrders = random.randint(min, max)
+            monthOrderCount += amountOfOrders
             # DAY
             for x in range(amountOfOrders):
+                number = random.randint(0, 100);
                 # discount 
                 discount = 'none'
                 isUsingDiscount = 'false';
+
+                # January
+                if month == 1:
+                    chance = 0.8
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 25):
+                        discount = teamtcDiscount
+                        isUsingDiscount = 'true'
+                # Feb - Sep
+                elif (month > 1) and (month < 9):
+                    chance = 1
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 25):
+                        discount = teamtcDiscount
+                        isUsingDiscount = 'true'
+                # September
+                elif month == 9:
+                    chance = 1.2
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 25):
+                        discount = teamtcDiscount
+                        isUsingDiscount = 'true'
                 # October
-                if month == 10:
-                    number = random.randint(0, 100);
-                    if (number < 25) and (number > 0):
-                        discount = discount1
+                elif month == 10:
+                    chance = 1.6
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 25):
+                        discount = teamtcDiscount
                         isUsingDiscount = 'true'
                     elif (number > 25) and (number > 50):
-                        discount = discount3
+                        discount = christmasDiscount
                         isUsingDiscount = 'true'
+                # November
+                elif month == 11:
+                    chance = 3
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 50):
+                        discount = blackFridayDiscount
+                        isUsingDiscount = 'true'
+                    elif (number > 25) and (number > 50):
+                        discount = christmasDiscount
+                        isUsingDiscount = 'true'
+                    elif (number > 50) and (number > 60):
+                        discount = teamtcDiscount
+                        isUsingDiscount = 'true'
+                # December
+                if month == 12:
+                    chance = 4
+                    min = int(1 * chance)
+                    max = int(10 * chance)
+                    if (number < 25):
+                        discount = teamtcDiscount
+                        isUsingDiscount = 'true'
+                    elif (number > 25) and (number > 50):
+                        discount = christmasDiscount
+                        isUsingDiscount = 'true'
+
+                    if i > 16:
+                        chance = 0.8
+                        min = int(1 * chance)
+                        max = int(10 * chance)
+
                 # time
-                print(month)
                 date = datetime.datetime(2021, month, i+1)
 
                 newOrder = generate_order(isUsingDiscount, discount, date)
                 ordersList.append(newOrder);
+            
+        print(monthOrderCount)
+
+        
     
     return ordersList;
