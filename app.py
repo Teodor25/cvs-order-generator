@@ -1,8 +1,11 @@
 import random
+import uuid
 
 def generate_customer():
+    customerUUID = uuid.uuid1;
+    
     obj = {
-        'customerId': 'order',
+        'customerId': customerUUID,
         'city': '129',
         'zipcode': 'false',
     }
