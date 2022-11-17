@@ -3,7 +3,7 @@ from customers import generate_list_of_customers
 from orders import generate_list_of_orders
 
 def export_list_of_customers_to_csv(): 
-    customerList = generate_list_of_customers(10000);
+    customerList = generate_list_of_customers(1000);
 
     customer_csv = open('customers.csv', 'w')
     csv_writer = csv.writer(customer_csv)
@@ -12,7 +12,6 @@ def export_list_of_customers_to_csv():
 
     for customer in customerList: 
         if count == 0:
-            #write header
             header = customer.keys()
             csv_writer.writerow(header)
             count += 1
@@ -22,13 +21,12 @@ def export_list_of_customers_to_csv():
     customer_csv.close()
 
 def export_list_of_orders_to_csv(): 
-    orderList = generate_list_of_orders(10000);
+    orderList = generate_list_of_orders();
 
     order_csv = open('orders.csv', 'w')
     product_csv = open('products.csv', 'w')
     csv_order_writer = csv.writer(order_csv)
     csv_product_writer = csv.writer(product_csv)
-
 
     count = 0;
 
