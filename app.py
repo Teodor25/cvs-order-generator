@@ -1,3 +1,38 @@
+import random
+
+def generate_customer():
+    obj = {
+        'customerId': 'order',
+        'city': '129',
+        'zipcode': 'false',
+    }
+    return obj;
+
+def generate_product():
+    
+    designTypes = ['family_tree', 'quotable', 'love_letter', 'pet_sign', 'custom_order', 'baby_sign'];
+    sizes = ['small', 'medium', 'large'];
+    familyTreePrices = [499, 699, 999];
+    quotablePrices = [299, 399, 499];
+
+    designTypeIndex = random.randint(0, len(designTypes) - 1);
+    sizeIndex = random.randint(0, len(sizes) - 1);
+
+    designType = designTypes[designTypeIndex];
+    size = sizes[sizeIndex];
+    productPrice = 0; 
+
+    if designTypes[designTypeIndex] == 'family_tree':
+        productPrice = familyTreePrices[sizeIndex];
+    else:
+        productPrice = quotablePrices[sizeIndex];
+
+    obj = {
+        'designType': designType,
+        'size': size,
+        'productPrice': productPrice,
+    }
+    return obj;
 
 def generate_order():
     obj = {
@@ -8,13 +43,13 @@ def generate_order():
     }
     return obj;
 
-def generate_list_of_orders(amount):
+def generate_list_of_x(amount):
     orderList = []
 
     for i in range(amount):
-        orderList.append(generate_order());
+        orderList.append(generate_product());
     
     print(orderList);
 
 
-generate_list_of_orders(10);
+generate_list_of_x(10);
