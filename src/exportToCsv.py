@@ -21,24 +21,36 @@ def export_list_of_customers_to_csv():
     customer_csv.close()
 
 def export_list_of_orders_to_csv(): 
-    orderList = generate_list_of_orders();
+    orderList = generate_list_of_orders()[0];
+    customerList = generate_list_of_orders()[1];
 
     order_csv = open('orders.csv', 'w')
     product_csv = open('products.csv', 'w')
+    customer_csv = open('customers.csv', 'w')
     csv_order_writer = csv.writer(order_csv)
     csv_product_writer = csv.writer(product_csv)
+    csv_customer_writer = csv.writer(customer_csv)
 
-    count = 0;
+    customerCount = 0;
+    orderCount = 0;
 
+    for customer in customerList:
+        if customerCount == 0:
+            customerHeader = ['customerId', 'postalCode', 'city']
+            csv_customer_writer.writerow(customerHeader)
+            customerCount += 1;
+
+        csv_customer_writer.writerow(customer.values())
+        
     for order in orderList: 
-        if count == 0:
+        if orderCount == 0:
             #write header
             orderHeader = order.keys()
             productHeader = ['designType', 'price', 'size']
             csv_product_writer.writerow(productHeader)
             csv_order_writer.writerow(orderHeader)
-            count += 1
-
+            orderCount += 1
+            
         csv_order_writer.writerow(order.values())
         productRow = [order['designType'], order['subtotal'], order['size']]
         csv_product_writer.writerow(productRow)

@@ -16,7 +16,7 @@ def generate_customer():
     obj = {
         'customerId': customerUUID.__str__(),
         'postalCode': postalCodes[cityIndex],
-        'cities': cities[cityIndex],
+        'city': cities[cityIndex],
     }
     return obj;
 

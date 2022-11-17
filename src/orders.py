@@ -1,4 +1,5 @@
 from products import generate_product
+from customers import generate_customer
 import uuid
 import random
 import datetime
@@ -37,15 +38,15 @@ def generate_order(usesDiscount, discount, date):
     shipping = random.choice(['home_delivery', 'parcel_shop'])
 
     obj = {
-        'orderId': orderUUID.__str__(), #
-        'designType': product[0], #
-        'size': product[1], #
-        'subtotal': subtotal, #
-        'total': total, #
-        'currency': 'DKK', #
-        'userId': userUUID.__str__(), #
-        'shipping': shipping, #
-        'discount': discountUsed, #
+        'orderId': orderUUID.__str__(),
+        'designType': product[0],
+        'size': product[1],
+        'subtotal': subtotal,
+        'total': total,
+        'currency': 'DKK',
+        'userId': userUUID.__str__(),
+        'shipping': shipping,
+        'discount': discountUsed,
         'date': date
     }
     return obj;
@@ -58,6 +59,7 @@ def generate_list_of_orders():
     max = int(10 * chance)
 
     ordersList = []
+    customerList = []
     months = [1,2,3,4,5,6,7,8,9,10,11,12]
 
     monthOrderCount = 0;
@@ -146,9 +148,8 @@ def generate_list_of_orders():
 
                 newOrder = generate_order(isUsingDiscount, discount, date)
                 ordersList.append(newOrder);
+                customerList.append(generate_customer())
             
         print(monthOrderCount)
 
-        
-    
-    return ordersList;
+    return [ordersList, customerList];
