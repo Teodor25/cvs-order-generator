@@ -1,13 +1,26 @@
+# -*- coding: utf-8 -*-
+
 import random
 import uuid
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+cityFile = open('cities.txt', 'r');
+lines = cityFile.readlines();
+postalCodes = []
+
+for line in lines:
+    if len(line) > 4:
+        postalCodes.append(line.split()[0])
+        
 def generate_customer():
     customerUUID = uuid.uuid1;
     
     obj = {
         'customerId': customerUUID,
-        'city': '129',
-        'zipcode': 'false',
+        'postalCode': random.choice(postalCodes),
     }
     return obj;
 
@@ -55,4 +68,4 @@ def generate_list_of_x(amount):
     print(orderList);
 
 
-generate_list_of_x(10);
+# generate_list_of_x(10);
