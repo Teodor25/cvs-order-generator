@@ -40,7 +40,7 @@ def export_list_of_orders_to_csv():
             count += 1
 
         csv_order_writer.writerow(order.values())
-        productRow = [order['designType'], order['price'], order['size']]
+        productRow = [order['designType'], order['subtotal'], order['size']]
         csv_product_writer.writerow(productRow)
 
     order_csv.close()
