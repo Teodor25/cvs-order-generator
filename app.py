@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
-
 import random
 import uuid
+import json
+import csv
 
 cityFile = open('cities.txt', 'r');
 lines = cityFile.readlines();
@@ -47,21 +47,42 @@ def generate_product():
     return obj;
 
 def generate_order():
+    product = generate_product();
+    jsonProduct = json.dumps(product);
+    print (jsonProduct)
     obj = {
-        'productName': 'order',
-        'price': 129,
+        'designType': jsonProduct.designType,
+        'price': product['productPrice'],
         'discount': 'false',
         'userId': '1asd-asd123-ads-1dsd'
     }
     return obj;
 
-def generate_list_of_x(amount):
-    orderList = []
-
+def generate_list_of_customers(amount):
+    customersList = []
     for i in range(amount):
-        orderList.append(generate_customer());
+        customersList.append(generate_customer());
     
-    print(orderList);
+    return customersList;
 
 
-generate_list_of_x(10);
+def export_list_of_customers_to_csv(): 
+    customerList = generate_list_of_customers(10);
+
+    customer_csv = open('customers.csv', 'w')
+    csv_writer = csv.writer(customer_csv)
+
+    customerListJson = json.dumps(customerList);
+
+    count = 0;
+
+    for customer in customerList: 
+        if count == 0:
+            #write header
+            header = customer.keys()
+            csv_writer.writerow(header)
+            count += 1
+
+        csv_writer.writerow(customer.values())
+
+    customer_csv.close()
