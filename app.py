@@ -3,10 +3,6 @@
 import random
 import uuid
 
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
-
 cityFile = open('cities.txt', 'r');
 lines = cityFile.readlines();
 postalCodes = []
