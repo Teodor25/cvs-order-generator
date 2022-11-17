@@ -9,9 +9,18 @@ postalCodes =  fullList[0]
 cities = fullList[1]
         
 def generate_customer():
-    customerUUID = uuid.uuid1();
+    cityIndex = 0; 
+    number = random.randint(0, 1000);
+    if number < 300: 
+        cityIndex = random.randint(0, 8);
+    elif (number > 300) and (number < 450):
+        cityIndex = random.randint(42, 46);
+    elif (number > 450) and (number < 520):
+        cityIndex = 53
+    else:
+        cityIndex = random.randint(0, len(postalCodes) - 1);
 
-    cityIndex = random.randint(0, len(postalCodes) - 1);
+    customerUUID = uuid.uuid1();
     
     obj = {
         'customerId': customerUUID.__str__(),
