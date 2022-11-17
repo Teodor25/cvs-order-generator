@@ -6,17 +6,22 @@ import csv
 cityFile = open('cities.txt', 'r');
 lines = cityFile.readlines();
 postalCodes = []
+cities = []
 
 for line in lines:
     if len(line) > 4:
         postalCodes.append(line.split()[0])
+        cities.append(line.split()[1])
         
 def generate_customer():
     customerUUID = uuid.uuid1();
+
+    cityIndex = random.randint(0, len(postalCodes))
     
     obj = {
         'customerId': customerUUID.__str__(),
-        'postalCode': random.choice(postalCodes),
+        'postalCode': postalCodes[cityIndex],
+        'cities': cities[cityIndex],
     }
     return obj;
 
@@ -39,22 +44,17 @@ def generate_product():
     else:
         productPrice = quotablePrices[sizeIndex];
 
-    obj = {
-        'designType': designType,
-        'size': size,
-        'productPrice': productPrice,
-    }
-    return obj;
+    return [designType, size, productPrice];
 
 def generate_order():
     product = generate_product();
-    jsonProduct = json.dumps(product);
-    print (jsonProduct)
+    orderUUID = uuid.uuid1();
     obj = {
-        'designType': jsonProduct.designType,
-        'price': product['productPrice'],
+        'designType': product[0],
+        'size': product[1],
+        'price': product[2],
         'discount': 'false',
-        'userId': '1asd-asd123-ads-1dsd'
+        'userId': orderUUID.__str__(),
     }
     return obj;
 
@@ -67,12 +67,10 @@ def generate_list_of_customers(amount):
 
 
 def export_list_of_customers_to_csv(): 
-    customerList = generate_list_of_customers(10);
+    customerList = generate_list_of_customers(10000);
 
     customer_csv = open('customers.csv', 'w')
     csv_writer = csv.writer(customer_csv)
-
-    customerListJson = json.dumps(customerList);
 
     count = 0;
 
@@ -86,3 +84,5 @@ def export_list_of_customers_to_csv():
         csv_writer.writerow(customer.values())
 
     customer_csv.close()
+
+export_list_of_customers_to_csv();
