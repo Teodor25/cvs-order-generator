@@ -25,17 +25,24 @@ def export_list_of_orders_to_csv():
     orderList = generate_list_of_orders(10000);
 
     order_csv = open('orders.csv', 'w')
-    csv_writer = csv.writer(order_csv)
+    product_csv = open('products.csv', 'w')
+    csv_order_writer = csv.writer(order_csv)
+    csv_product_writer = csv.writer(product_csv)
+
 
     count = 0;
 
     for order in orderList: 
         if count == 0:
             #write header
-            header = order.keys()
-            csv_writer.writerow(header)
+            orderHeader = order.keys()
+            productHeader = ['designType', 'price', 'size']
+            csv_product_writer.writerow(productHeader)
+            csv_order_writer.writerow(orderHeader)
             count += 1
 
-        csv_writer.writerow(order.values())
+        csv_order_writer.writerow(order.values())
+        productRow = [order['designType'], order['price'], order['size']]
+        csv_product_writer.writerow(productRow)
 
     order_csv.close()
