@@ -1,14 +1,13 @@
 from data import getCityData;
 
 import random
-import uuid
 
 fullList = getCityData();
 
 postalCodes =  fullList[0]
 cities = fullList[1]
         
-def generate_customer():
+def generate_customer(UUID):
     cityIndex = 0; 
     number = random.randint(0, 1000);
     if number < 350: 
@@ -23,19 +22,10 @@ def generate_customer():
         cityIndex = random.randint(21, 24);
     else:
         cityIndex = random.randint(0, len(postalCodes) - 1);
-
-    customerUUID = uuid.uuid1();
     
     obj = {
-        'customerId': customerUUID.__str__(),
+        'customerId': UUID,
         'postalCode': postalCodes[cityIndex],
         'city': cities[cityIndex],
     }
     return obj;
-
-def generate_list_of_customers(amount):
-    customersList = []
-    for i in range(amount):
-        customersList.append(generate_customer());
-    
-    return customersList;

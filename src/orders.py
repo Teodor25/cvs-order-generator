@@ -49,7 +49,7 @@ def generate_order(usesDiscount, discount, date):
         'discount': discountUsed,
         'date': date
     }
-    return obj;
+    return [obj, userUUID];
 
 
 def generate_list_of_orders():
@@ -147,8 +147,8 @@ def generate_list_of_orders():
                 date = datetime.datetime(2021, month, i+1)
 
                 newOrder = generate_order(isUsingDiscount, discount, date)
-                ordersList.append(newOrder);
-                customerList.append(generate_customer())
+                ordersList.append(newOrder[0]);
+                customerList.append(generate_customer(newOrder[1]))
             
         print(monthOrderCount)
 

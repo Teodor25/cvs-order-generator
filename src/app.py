@@ -1,4 +1,3 @@
-from exportToCsv import export_list_of_customers_to_csv, export_list_of_orders_to_csv
+from exportToCsv import export_list_of_orders_to_csv
 
-export_list_of_customers_to_csv();
 export_list_of_orders_to_csv()

@@ -1,5 +1,5 @@
 def getCityData(): 
-    cityFile = open('cities.txt', 'r');
+    cityFile = open('../cities.txt', 'r');
     lines = cityFile.readlines();
     postalCodes = []
     cities = []
